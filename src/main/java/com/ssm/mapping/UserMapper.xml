@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.pojo.User" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="E_MAIL" property="eMail" jdbcType="VARCHAR" />
+    <result column="E_MAIL_AUTHORITY_TYPE" property="eMailAuthorityType" jdbcType="SMALLINT" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="HEAD_PIC_URL" property="headPicUrl" jdbcType="VARCHAR" />
+    <result column="ID_CARDS_NUMBER" property="idCardsNumber" jdbcType="VARCHAR" />
+    <result column="MSN" property="msn" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="LOCATION_ID" property="locationId" jdbcType="INTEGER" />
+    <result column="HOMETOWN_ID" property="hometownId" jdbcType="INTEGER" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="SUBSCRIBE" property="subscribe" jdbcType="SMALLINT" />
+    <result column="E_MAIL_VALIDATOR" property="eMailValidator" jdbcType="SMALLINT" />
+    <result column="PHONE_NUMBER_AUTHORITY_TYPE" property="phoneNumberAuthorityType" jdbcType="SMALLINT" />
+    <result column="COMPANY_NAME_AUTHORITY" property="companyNameAuthority" jdbcType="SMALLINT" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="CHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPT_COUNTER" property="optCounter" jdbcType="SMALLINT" />
+    <result column="RANDOM_NUM" property="randomNum" jdbcType="VARCHAR" />
+    <result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR" />
+    <result column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="_APPROVAL_RESULT_STATUS" property="approvalResultStatus" jdbcType="CHAR" />
+    <result column="_APPROVAL_QUERY_STATUS" property="approvalQueryStatus" jdbcType="CHAR" />
+    <result column="_APPROVAL_RESULT_TIME" property="approvalResultTime" jdbcType="TIMESTAMP" />
+    <result column="KNOWLEDGEBACKGROUND" property="knowledgebackground" jdbcType="VARCHAR" />
+    <result column="BIND_TYPE" property="bindType" jdbcType="VARCHAR" />
+    <result column="ISAUTH" property="isauth" jdbcType="VARCHAR" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="LOGIN_COUNT" property="loginCount" jdbcType="INTEGER" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="IS_LOCK" property="isLock" jdbcType="VARCHAR" />
+    <result column="UNLOCKED_TIME" property="unlockedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USERNAME, REAL_NAME, NICK_NAME, PASSWORD, E_MAIL, E_MAIL_AUTHORITY_TYPE, PHONE_NUMBER, 
+    HEAD_PIC_URL, ID_CARDS_NUMBER, MSN, QQ, LOCATION_ID, HOMETOWN_ID, COMPANY_NAME, BIRTHDAY, 
+    SEX, SUBSCRIBE, E_MAIL_VALIDATOR, PHONE_NUMBER_AUTHORITY_TYPE, COMPANY_NAME_AUTHORITY, 
+    IS_DELETED, CREATE_TIME, UPDATE_TIME, OPT_COUNTER, RANDOM_NUM, INTRODUCTION, OPEN_ID, 
+    SOURCE, _APPROVAL_RESULT_STATUS, _APPROVAL_QUERY_STATUS, _APPROVAL_RESULT_TIME, KNOWLEDGEBACKGROUND, 
+    BIND_TYPE, ISAUTH, LAST_LOGIN_TIME, LOGIN_COUNT, IP, IS_LOCK, UNLOCKED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TBL_USER
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getUsersList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select * from TBL_USER limit 100
+  </select>
+  
+  <select id="getUsersListByPages" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select * from TBL_USER limit 
+  	 <if test="beginNum != null" >
+        #{beginNum},
+     </if>
+     <if test="endNum != null" >
+        #{endNum}
+     </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TBL_USER
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssm.pojo.User" >
+    insert into TBL_USER (ID, USERNAME, REAL_NAME, 
+      NICK_NAME, PASSWORD, E_MAIL, 
+      E_MAIL_AUTHORITY_TYPE, PHONE_NUMBER, HEAD_PIC_URL, 
+      ID_CARDS_NUMBER, MSN, QQ, 
+      LOCATION_ID, HOMETOWN_ID, COMPANY_NAME, 
+      BIRTHDAY, SEX, SUBSCRIBE, 
+      E_MAIL_VALIDATOR, PHONE_NUMBER_AUTHORITY_TYPE, 
+      COMPANY_NAME_AUTHORITY, IS_DELETED, CREATE_TIME, 
+      UPDATE_TIME, OPT_COUNTER, RANDOM_NUM, 
+      INTRODUCTION, OPEN_ID, SOURCE, 
+      _APPROVAL_RESULT_STATUS, _APPROVAL_QUERY_STATUS, _APPROVAL_RESULT_TIME, 
+      KNOWLEDGEBACKGROUND, BIND_TYPE, ISAUTH, 
+      LAST_LOGIN_TIME, LOGIN_COUNT, IP, 
+      IS_LOCK, UNLOCKED_TIME)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR}, 
+      #{eMailAuthorityType,jdbcType=SMALLINT}, #{phoneNumber,jdbcType=VARCHAR}, #{headPicUrl,jdbcType=VARCHAR}, 
+      #{idCardsNumber,jdbcType=VARCHAR}, #{msn,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{locationId,jdbcType=INTEGER}, #{hometownId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{sex,jdbcType=VARCHAR}, #{subscribe,jdbcType=SMALLINT}, 
+      #{eMailValidator,jdbcType=SMALLINT}, #{phoneNumberAuthorityType,jdbcType=SMALLINT}, 
+      #{companyNameAuthority,jdbcType=SMALLINT}, #{isDeleted,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{optCounter,jdbcType=SMALLINT}, #{randomNum,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{approvalResultStatus,jdbcType=CHAR}, #{approvalQueryStatus,jdbcType=CHAR}, #{approvalResultTime,jdbcType=TIMESTAMP}, 
+      #{knowledgebackground,jdbcType=VARCHAR}, #{bindType,jdbcType=VARCHAR}, #{isauth,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, 
+      #{isLock,jdbcType=VARCHAR}, #{unlockedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.pojo.User" >
+    insert into TBL_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="eMail != null" >
+        E_MAIL,
+      </if>
+      <if test="eMailAuthorityType != null" >
+        E_MAIL_AUTHORITY_TYPE,
+      </if>
+      <if test="phoneNumber != null" >
+        PHONE_NUMBER,
+      </if>
+      <if test="headPicUrl != null" >
+        HEAD_PIC_URL,
+      </if>
+      <if test="idCardsNumber != null" >
+        ID_CARDS_NUMBER,
+      </if>
+      <if test="msn != null" >
+        MSN,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="locationId != null" >
+        LOCATION_ID,
+      </if>
+      <if test="hometownId != null" >
+        HOMETOWN_ID,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="subscribe != null" >
+        SUBSCRIBE,
+      </if>
+      <if test="eMailValidator != null" >
+        E_MAIL_VALIDATOR,
+      </if>
+      <if test="phoneNumberAuthorityType != null" >
+        PHONE_NUMBER_AUTHORITY_TYPE,
+      </if>
+      <if test="companyNameAuthority != null" >
+        COMPANY_NAME_AUTHORITY,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="optCounter != null" >
+        OPT_COUNTER,
+      </if>
+      <if test="randomNum != null" >
+        RANDOM_NUM,
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION,
+      </if>
+      <if test="openId != null" >
+        OPEN_ID,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="approvalResultStatus != null" >
+        _APPROVAL_RESULT_STATUS,
+      </if>
+      <if test="approvalQueryStatus != null" >
+        _APPROVAL_QUERY_STATUS,
+      </if>
+      <if test="approvalResultTime != null" >
+        _APPROVAL_RESULT_TIME,
+      </if>
+      <if test="knowledgebackground != null" >
+        KNOWLEDGEBACKGROUND,
+      </if>
+      <if test="bindType != null" >
+        BIND_TYPE,
+      </if>
+      <if test="isauth != null" >
+        ISAUTH,
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME,
+      </if>
+      <if test="loginCount != null" >
+        LOGIN_COUNT,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="isLock != null" >
+        IS_LOCK,
+      </if>
+      <if test="unlockedTime != null" >
+        UNLOCKED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null" >
+        #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="eMailAuthorityType != null" >
+        #{eMailAuthorityType,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="headPicUrl != null" >
+        #{headPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardsNumber != null" >
+        #{idCardsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="locationId != null" >
+        #{locationId,jdbcType=INTEGER},
+      </if>
+      <if test="hometownId != null" >
+        #{hometownId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        #{subscribe,jdbcType=SMALLINT},
+      </if>
+      <if test="eMailValidator != null" >
+        #{eMailValidator,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumberAuthorityType != null" >
+        #{phoneNumberAuthorityType,jdbcType=SMALLINT},
+      </if>
+      <if test="companyNameAuthority != null" >
+        #{companyNameAuthority,jdbcType=SMALLINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optCounter != null" >
+        #{optCounter,jdbcType=SMALLINT},
+      </if>
+      <if test="randomNum != null" >
+        #{randomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalResultStatus != null" >
+        #{approvalResultStatus,jdbcType=CHAR},
+      </if>
+      <if test="approvalQueryStatus != null" >
+        #{approvalQueryStatus,jdbcType=CHAR},
+      </if>
+      <if test="approvalResultTime != null" >
+        #{approvalResultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="knowledgebackground != null" >
+        #{knowledgebackground,jdbcType=VARCHAR},
+      </if>
+      <if test="bindType != null" >
+        #{bindType,jdbcType=VARCHAR},
+      </if>
+      <if test="isauth != null" >
+        #{isauth,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null" >
+        #{isLock,jdbcType=VARCHAR},
+      </if>
+      <if test="unlockedTime != null" >
+        #{unlockedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.User" >
+    update TBL_USER
+    <set >
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null" >
+        E_MAIL = #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="eMailAuthorityType != null" >
+        E_MAIL_AUTHORITY_TYPE = #{eMailAuthorityType,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumber != null" >
+        PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="headPicUrl != null" >
+        HEAD_PIC_URL = #{headPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardsNumber != null" >
+        ID_CARDS_NUMBER = #{idCardsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        MSN = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="locationId != null" >
+        LOCATION_ID = #{locationId,jdbcType=INTEGER},
+      </if>
+      <if test="hometownId != null" >
+        HOMETOWN_ID = #{hometownId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null" >
+        SUBSCRIBE = #{subscribe,jdbcType=SMALLINT},
+      </if>
+      <if test="eMailValidator != null" >
+        E_MAIL_VALIDATOR = #{eMailValidator,jdbcType=SMALLINT},
+      </if>
+      <if test="phoneNumberAuthorityType != null" >
+        PHONE_NUMBER_AUTHORITY_TYPE = #{phoneNumberAuthorityType,jdbcType=SMALLINT},
+      </if>
+      <if test="companyNameAuthority != null" >
+        COMPANY_NAME_AUTHORITY = #{companyNameAuthority,jdbcType=SMALLINT},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="optCounter != null" >
+        OPT_COUNTER = #{optCounter,jdbcType=SMALLINT},
+      </if>
+      <if test="randomNum != null" >
+        RANDOM_NUM = #{randomNum,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalResultStatus != null" >
+        _APPROVAL_RESULT_STATUS = #{approvalResultStatus,jdbcType=CHAR},
+      </if>
+      <if test="approvalQueryStatus != null" >
+        _APPROVAL_QUERY_STATUS = #{approvalQueryStatus,jdbcType=CHAR},
+      </if>
+      <if test="approvalResultTime != null" >
+        _APPROVAL_RESULT_TIME = #{approvalResultTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="knowledgebackground != null" >
+        KNOWLEDGEBACKGROUND = #{knowledgebackground,jdbcType=VARCHAR},
+      </if>
+      <if test="bindType != null" >
+        BIND_TYPE = #{bindType,jdbcType=VARCHAR},
+      </if>
+      <if test="isauth != null" >
+        ISAUTH = #{isauth,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null" >
+        LOGIN_COUNT = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null" >
+        IS_LOCK = #{isLock,jdbcType=VARCHAR},
+      </if>
+      <if test="unlockedTime != null" >
+        UNLOCKED_TIME = #{unlockedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.User" >
+    update TBL_USER
+    set USERNAME = #{username,jdbcType=VARCHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      E_MAIL = #{eMail,jdbcType=VARCHAR},
+      E_MAIL_AUTHORITY_TYPE = #{eMailAuthorityType,jdbcType=SMALLINT},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      HEAD_PIC_URL = #{headPicUrl,jdbcType=VARCHAR},
+      ID_CARDS_NUMBER = #{idCardsNumber,jdbcType=VARCHAR},
+      MSN = #{msn,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      LOCATION_ID = #{locationId,jdbcType=INTEGER},
+      HOMETOWN_ID = #{hometownId,jdbcType=INTEGER},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      SEX = #{sex,jdbcType=VARCHAR},
+      SUBSCRIBE = #{subscribe,jdbcType=SMALLINT},
+      E_MAIL_VALIDATOR = #{eMailValidator,jdbcType=SMALLINT},
+      PHONE_NUMBER_AUTHORITY_TYPE = #{phoneNumberAuthorityType,jdbcType=SMALLINT},
+      COMPANY_NAME_AUTHORITY = #{companyNameAuthority,jdbcType=SMALLINT},
+      IS_DELETED = #{isDeleted,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      OPT_COUNTER = #{optCounter,jdbcType=SMALLINT},
+      RANDOM_NUM = #{randomNum,jdbcType=VARCHAR},
+      INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      OPEN_ID = #{openId,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=VARCHAR},
+      _APPROVAL_RESULT_STATUS = #{approvalResultStatus,jdbcType=CHAR},
+      _APPROVAL_QUERY_STATUS = #{approvalQueryStatus,jdbcType=CHAR},
+      _APPROVAL_RESULT_TIME = #{approvalResultTime,jdbcType=TIMESTAMP},
+      KNOWLEDGEBACKGROUND = #{knowledgebackground,jdbcType=VARCHAR},
+      BIND_TYPE = #{bindType,jdbcType=VARCHAR},
+      ISAUTH = #{isauth,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      LOGIN_COUNT = #{loginCount,jdbcType=INTEGER},
+      IP = #{ip,jdbcType=VARCHAR},
+      IS_LOCK = #{isLock,jdbcType=VARCHAR},
+      UNLOCKED_TIME = #{unlockedTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

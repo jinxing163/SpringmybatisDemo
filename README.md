@@ -1,2 +1,1 @@
-# SpringmybatisDemo
-Spring+mybatis
+#springmvc_mybatis

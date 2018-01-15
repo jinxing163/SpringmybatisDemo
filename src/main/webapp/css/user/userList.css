@@ -1,0 +1,23 @@
+
+.userTable{
+	border-collapse: collapse;
+	border: 1px solid #ccc;
+}
+
+button{
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	font-weight: bold;
+}
+.userTable td,th{
+	width: 105px;
+	text-align:center;
+	border: 1px solid black;
+}
+
+.right{
+	bottom: -50px;
+    position: absolute;
+    right: 15px;
+}
