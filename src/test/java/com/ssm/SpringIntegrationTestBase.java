@@ -1,5 +1,11 @@
 package com.ssm;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +41,17 @@ public class SpringIntegrationTestBase {
     @Test
     public void test(){
 
+    	Map<Long,Long> map2=new HashMap<Long,Long>();
+    	for (Map.Entry<Long, Long> map : map2.entrySet()) {
+			
+		}
+    	
+    	List<Long> list=new ArrayList<Long>();
+    	for (Long long1 : list) {
+			
+		}
+    	
+    	
         System.out.println("test............");
 
     }

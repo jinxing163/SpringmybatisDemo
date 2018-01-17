@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+           	http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- ####### 问答教师模块热门问答问题分发 start ####### -->
+	
+	<!-- 教学模块热门问答->定时器凌晨2:00生成老师的热门问答列表 -->
+	<bean id="springQuartzTest_quartz" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<bean
+				class="com.ssm.quartz.bean.AbleBeanInvokingJobDetailFactoryBean">
+				<property name="targetBean" value="springQuartzTest"></property>
+				<property name="concurrent" value="false"></property>
+				<property name="targetMethod" value="executeInternal"></property>
+				<property name="jobDetailName" value="springQuartzTest_quartz" />
+			</bean>
+		</property>
+			<!-- 每小时调度一次 -->
+			<property name="cronExpression" value="* * * * * ?" />
+<!-- 			<property name="cronExpression" value="0 0/20 * * * ?" /> -->
+	</bean>
+
+    <!-- 定时器集群数据源 -->
+    <bean id="quartz-dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="url" value="${online_qa.db.url}" />
+        <property name="username" value="${username}" />
+        <property name="password" value="${password}" />
+    </bean>
+
+	<bean name="quartzScheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="springQuartzTest_quartz" />
+
+			</list>
+		</property>
+		<property name="jobFactory" ref="jobFactory"></property>
+		<property name="startupDelay" value="10"></property>
+		<property name="dataSource" ref="quartz-dataSource"></property>
+		<property name="configLocation" value="classpath:quartz.properties" />
+		<property name="overwriteExistingJobs" value="true" />
+	</bean>
+
+</beans>

@@ -166,6 +166,19 @@
             <version>1.9.3</version>
         </dependency>
 
+        <!-- Spring-Quartz实现定时任务调度 -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>1.8.5</version>
+        </dependency>
+
+        <!-- http://repo1.maven.org/maven2/com/xuxueli/xxl-job-core/ -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>1.8.2</version>
+        </dependency>
 
     </dependencies>
 	<build>

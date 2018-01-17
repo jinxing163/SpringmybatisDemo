@@ -13,10 +13,25 @@
     <context:component-scan base-package="com.ssm" />
 
     <!-- 引入配置文件 -->
-    <bean id="propertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties" />
+    <!--<bean id="propertyConfigurer"-->
+        <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations" value="classpath:jdbc.properties" />-->
+    <!--</bean>-->
+
+    <bean id="propertyConfigure"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+                <!--<value>classpath:xxl-job-admin.properties</value>-->
+                <value>classpath:xxl-job.properties</value>
+                <!--<value>classpath:xxl-job-executor.properties</value>-->
+            </list>
+        </property>
     </bean>
+
+    <!-- 其它Spring配置文件 -->
+	<import resource="classpath*:beans-*.xml" />
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
         destroy-method="close">
